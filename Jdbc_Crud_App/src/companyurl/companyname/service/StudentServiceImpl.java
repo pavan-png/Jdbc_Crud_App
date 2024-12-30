@@ -1,13 +1,17 @@
 package companyurl.companyname.service;
 
+import companyurl.companyname.daofactory.StudentDaoFactory;
 import companyurl.companyname.dto.Student;
+import companyurl.companyname.persistence.IStudentDao;
+import companyurl.companyname.persistence.StudentDaoImpl;
 
 public class StudentServiceImpl implements IStudentService {
+	IStudentDao studentDao = null;
 
 	@Override
 	public String addStudent(Integer sid, String sname, Integer sage, String saddress) {
-		// TODO Auto-generated method stub
-		return null;
+		studentDao = StudentDaoFactory.getStudentDao();
+		return studentDao.addStudent(sid, sname, sage, saddress);
 	}
 
 	@Override
