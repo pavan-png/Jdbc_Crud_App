@@ -1,0 +1,5 @@
+package companyurl.companyname.service;
+
+public interface IStudentService {
+
+}

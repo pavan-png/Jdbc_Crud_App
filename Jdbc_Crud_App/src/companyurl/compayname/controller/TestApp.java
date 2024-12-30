@@ -1,0 +1,10 @@
+package companyurl.compayname.controller;
+
+public class TestApp {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

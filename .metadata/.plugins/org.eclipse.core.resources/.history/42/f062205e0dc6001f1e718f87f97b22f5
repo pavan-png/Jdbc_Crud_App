@@ -1,0 +1,16 @@
+package companyurl.companyname.persistence;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Test {
+
+	public static void main(String[] args) throws SQLException {
+		Connection connection = null;
+		connection = DriverManager.getConnection("jdbc:Oracle:thin:@localhost:1521:orcl","practice","1234");
+		System.out.println("success");
+
+	}
+
+}
