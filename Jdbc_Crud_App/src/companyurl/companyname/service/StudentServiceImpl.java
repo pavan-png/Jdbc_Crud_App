@@ -20,8 +20,8 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public Student searchStudent(Integer sid) {
-		// TODO Auto-generated method stub
-		return null;
+		stdDao = StudentDaoFactory.getStudentDao();
+		return stdDao.searchStudent(sid);
 	}
 
 	@Override

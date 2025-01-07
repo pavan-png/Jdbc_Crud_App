@@ -20,6 +20,7 @@ public class StudentDaoImpl implements IStudentDao {
 	Properties properties;
 	PreparedStatement preparedStatement;
 	
+	
 	public String addStudent(Integer sid, String sname, Integer sage, String saddress) throws SQLException, IOException {
 		f= new File("C:\\Users\\mohan\\pavan-workspace-adv-java\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
 		fis = new FileInputStream(f);
@@ -42,9 +43,18 @@ public class StudentDaoImpl implements IStudentDao {
 	}
 
 	@Override
-	public Student searchStudent(Integer sid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Student searchStudent(Integer sid) throws SQLException, IOException {
+		f= new File("C:\\Users\\mohan\\pavan-workspace-adv-java\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
+		fis = new FileInputStream(f);
+		properties = new Properties();
+		properties.load(fis);
+		connection = DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
+		String query = "select * from student where sid = ? ";
+		connection.prepareStatement(query);
+		preparedStatement.setInt(1, sid);
+		preparedStatement.executeQuery();
+		
+		
 	}
 
 	@Override

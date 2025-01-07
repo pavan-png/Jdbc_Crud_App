@@ -5,12 +5,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import companyurl.companyname.dto.Student;
 import companyurl.companyname.service.IStudentService;
 import companyurl.companyname.servicefactoy.StudentServiceFactory;
 
 public class TestApp {
 
-	public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
+	public static void main(String[] args) throws FileNotFoundException, SQLException, IOException  {
+		// insertOperation();
+		
+	}
+		
+	private static void insertOperation() throws FileNotFoundException, SQLException, IOException {
 		IStudentService studentService = StudentServiceFactory.getStudentService();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("enter the id of the student");
@@ -29,6 +35,22 @@ public class TestApp {
 			System.out.println("record insertion failed");
 		}
 		sc.close();
-	}
-
+		}
+		private static void selectOperation() {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("enter the id of the student");
+			Integer sid = sc.nextInt();
+			IStudentService studentService = StudentServiceFactory.getStudentService();
+			Student std = studentService.searchStudent(sid);
+			if(std!=null) {
+				System.out.println(std);
+				System.out.println("sid \t sname \t sage \t saddress");
+				System.out.println(std.getSid()+"\t"+std.getSname()+"\t"+std.getSage()+"\t"+std.getSaddress());
+			}
+			else {
+				System.out.println("record not found for the given id");
+			}
+			sc.close();
+			
+		}
 }
