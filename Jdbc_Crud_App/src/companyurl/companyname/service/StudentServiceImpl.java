@@ -19,7 +19,7 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
-	public Student searchStudent(Integer sid) {
+	public Student searchStudent(Integer sid) throws FileNotFoundException, SQLException, IOException {
 		stdDao = StudentDaoFactory.getStudentDao();
 		return stdDao.searchStudent(sid);
 	}

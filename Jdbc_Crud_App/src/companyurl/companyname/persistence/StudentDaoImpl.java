@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Scanner;
@@ -19,6 +20,8 @@ public class StudentDaoImpl implements IStudentDao {
 	FileInputStream fis;
 	Properties properties;
 	PreparedStatement preparedStatement;
+	ResultSet resultSet;
+	Student student;
 	
 	
 	public String addStudent(Integer sid, String sname, Integer sage, String saddress) throws SQLException, IOException {
@@ -44,16 +47,30 @@ public class StudentDaoImpl implements IStudentDao {
 
 	@Override
 	public Student searchStudent(Integer sid) throws SQLException, IOException {
-		f= new File("C:\\Users\\mohan\\pavan-workspace-adv-java\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
+		f= new File("C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
 		fis = new FileInputStream(f);
 		properties = new Properties();
 		properties.load(fis);
 		connection = DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
 		String query = "select * from student where sid = ? ";
-		connection.prepareStatement(query);
-		preparedStatement.setInt(1, sid);
-		preparedStatement.executeQuery();
+		preparedStatement = connection.prepareStatement(query);
+		preparedStatement.setInt(1,sid);
+		resultSet = preparedStatement.executeQuery();
 		
+		if (resultSet != null) {
+			if(resultSet.next()) {
+			
+				student = new Student();
+				student.setSid(resultSet.getInt(1));
+				student.setSname(resultSet.getString(2));
+				student.setSage(resultSet.getInt(3));
+				student.setSaddress(resultSet.getString(4));
+				return student;
+			
+			}
+		}
+		
+		return student;
 		
 	}
 

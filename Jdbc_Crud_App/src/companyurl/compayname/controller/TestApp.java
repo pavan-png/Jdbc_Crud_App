@@ -13,6 +13,7 @@ public class TestApp {
 
 	public static void main(String[] args) throws FileNotFoundException, SQLException, IOException  {
 		// insertOperation();
+		selectOperation();
 		
 	}
 		
@@ -36,7 +37,8 @@ public class TestApp {
 		}
 		sc.close();
 		}
-		private static void selectOperation() {
+	
+		private static void selectOperation() throws FileNotFoundException, SQLException, IOException {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("enter the id of the student");
 			Integer sid = sc.nextInt();
