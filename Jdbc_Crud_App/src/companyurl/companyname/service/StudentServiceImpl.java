@@ -31,9 +31,9 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
-	public String deleteStudent(Integer sid) {
-		// TODO Auto-generated method stub
-		return null;
+	public String deleteStudent(Integer sid) throws FileNotFoundException, IOException, SQLException {
+		stdDao = StudentDaoFactory.getStudentDao();
+		return stdDao.deleteStudent(sid);
 	}
 
 }

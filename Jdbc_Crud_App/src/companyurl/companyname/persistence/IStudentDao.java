@@ -13,5 +13,5 @@ public interface IStudentDao {
 	
 	public String updateStudent(Integer sid, String sname, Integer sage, String saddress);
 	
-	public String deleteStudent(Integer sid);
+	public String deleteStudent(Integer sid) throws FileNotFoundException, IOException, SQLException;
 }

@@ -13,7 +13,8 @@ public class TestApp {
 
 	public static void main(String[] args) throws FileNotFoundException, SQLException, IOException  {
 		// insertOperation();
-		selectOperation();
+		//selectOperation();
+		deleteOperation();
 		
 	}
 		
@@ -51,6 +52,25 @@ public class TestApp {
 			}
 			else {
 				System.out.println("record not found for the given id");
+			}
+			sc.close();
+			
+		}
+		
+		private static void deleteOperation() throws FileNotFoundException, IOException, SQLException {
+			Scanner sc = new Scanner (System.in);
+			System.out.println("enter the id of the student");
+			int sid = sc.nextInt();
+			IStudentService studentService = StudentServiceFactory.getStudentService();
+			String msg = studentService.deleteStudent(sid);
+			if (msg.contentEquals("success")) {
+				System.out.println("record deleted successfully");
+			}
+			else if(msg.equalsIgnoreCase("not found")) {
+				System.out.println("record not found");
+			}
+			else {
+				System.out.println("record deletion failed");
 			}
 			sc.close();
 			
