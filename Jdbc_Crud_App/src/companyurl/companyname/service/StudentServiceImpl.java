@@ -25,7 +25,7 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
-	public String updateStudent(Integer sid, String sname, Integer sage, String saddress) {
+	public String updateStudent(Student student) {
 		// TODO Auto-generated method stub
 		return null;
 	}
