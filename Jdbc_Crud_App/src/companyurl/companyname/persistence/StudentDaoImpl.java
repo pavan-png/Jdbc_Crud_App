@@ -25,7 +25,7 @@ public class StudentDaoImpl implements IStudentDao {
 	
 	
 	public String addStudent(Integer sid, String sname, Integer sage, String saddress) throws SQLException, IOException {
-		f= new File("C:\\Users\\mohan\\pavan-workspace-adv-java\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
+		f= new File("C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
 		fis = new FileInputStream(f);
 		properties = new Properties();
 		properties.load(fis);
@@ -75,9 +75,26 @@ public class StudentDaoImpl implements IStudentDao {
 	}
 
 	@Override
-	public String updateStudent(Student student) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateStudent(Student student) throws SQLException, IOException {
+		f= new File("C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
+		fis = new FileInputStream(f);
+		properties = new Properties();
+		properties.load(fis);
+		connection = DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
+		String query = "update student set sname = ? , sage = ? , saddress = ? where sid = ? ";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setString(1, student.getSname());
+		pstmt.setInt(2, student.getSage());
+		pstmt.setString(3, student.getSaddress());
+		pstmt.setInt(4, student.getSid());
+		
+		int rowsAffected = pstmt.executeUpdate();
+		if (rowsAffected == 1) {
+			return "success";
+		}
+		else {
+			return "failed";
+		}
 	}
 
 	@Override

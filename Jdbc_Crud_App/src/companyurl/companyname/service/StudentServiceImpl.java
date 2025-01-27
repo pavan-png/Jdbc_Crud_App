@@ -25,9 +25,9 @@ public class StudentServiceImpl implements IStudentService {
 	}
 
 	@Override
-	public String updateStudent(Student student) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateStudent(Student student) throws FileNotFoundException, SQLException, IOException {
+		stdDao = StudentDaoFactory.getStudentDao();
+		return stdDao.updateStudent(student);
 	}
 
 	@Override
