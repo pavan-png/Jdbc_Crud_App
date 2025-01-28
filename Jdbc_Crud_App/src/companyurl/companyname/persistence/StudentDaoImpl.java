@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Scanner;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import companyurl.companyname.dto.Student;
 
 public class StudentDaoImpl implements IStudentDao {
@@ -23,13 +26,18 @@ public class StudentDaoImpl implements IStudentDao {
 	ResultSet resultSet;
 	Student student;
 	
+	public void login() throws SQLException {
+		String configFile = "C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties";
+		HikariConfig config = new HikariConfig(configFile);
+		HikariDataSource dataSource = new HikariDataSource(config);
+		connection = dataSource.getConnection();
+	}
+	
 	
 	public String addStudent(Integer sid, String sname, Integer sage, String saddress) throws SQLException, IOException {
-		f= new File("C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
-		fis = new FileInputStream(f);
-		properties = new Properties();
-		properties.load(fis);
-		connection = DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
+	
+		login();
+		
 		String query = "insert into student values (?,?,?,?)";
 		preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1, sid);
@@ -47,11 +55,8 @@ public class StudentDaoImpl implements IStudentDao {
 
 	@Override
 	public Student searchStudent(Integer sid) throws SQLException, IOException {
-		f= new File("C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
-		fis = new FileInputStream(f);
-		properties = new Properties();
-		properties.load(fis);
-		connection = DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
+	
+		login();
 		String query = "select * from student where sid = ? ";
 		preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setInt(1,sid);
@@ -76,11 +81,7 @@ public class StudentDaoImpl implements IStudentDao {
 
 	@Override
 	public String updateStudent(Student student) throws SQLException, IOException {
-		f= new File("C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
-		fis = new FileInputStream(f);
-		properties = new Properties();
-		properties.load(fis);
-		connection = DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
+		login();
 		String query = "update student set sname = ? , sage = ? , saddress = ? where sid = ? ";
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, student.getSname());
@@ -99,14 +100,9 @@ public class StudentDaoImpl implements IStudentDao {
 
 	@Override
 	public String deleteStudent(Integer sid) throws IOException, SQLException {
-		f= new File("C:\\Users\\Administrator\\app\\Jdbc_Crud_App\\Jdbc_Crud_App\\src\\credentials\\loginInfo.properties");
-		fis = new FileInputStream(f);
-		properties = new Properties();
-		properties.load(fis);
-		connection = DriverManager.getConnection(properties.getProperty("url"),properties.getProperty("userName"),properties.getProperty("password"));
+		login();
 		String query = "delete from student where sid = ?";
-		
-			preparedStatement = connection.prepareStatement(query);
+		preparedStatement = connection.prepareStatement(query);
 			if (preparedStatement!=null) {
 				preparedStatement.setInt(1, sid);
 				int rowAffected = preparedStatement.executeUpdate();
